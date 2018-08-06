@@ -5,14 +5,14 @@ export class WorkSession{
 	start: Date;
 	end: Date;
 	task: string;
-	minutes : number;
+	seconds : number;
 	description: string = "";
 	showingDetail: boolean = false;
 }
 
 export class TaskReport{
 	task: string;
-	minutes: number;
+	seconds: number;
 	// TODO : percentage
 	descriptions: string[] = Array();
 }
@@ -97,7 +97,7 @@ export class AppComponent implements OnInit {
 				s.description = localItem['description'];
 				s.end = localItem['end'];
 				s.start = localItem['start'];
-				s.minutes = localItem['minutes'];
+				s.seconds = localItem['seconds'];
 				s.task = localItem['task'];
 				this.workHistory = this.workHistory.concat(s);
 			}
@@ -110,7 +110,7 @@ export class AppComponent implements OnInit {
 			s.description = localCurrentWorkSession['description'];
 			s.end = localCurrentWorkSession['end'];
 			s.start = localCurrentWorkSession['start'];
-			s.minutes = localCurrentWorkSession['minutes'];
+			s.seconds = localCurrentWorkSession['seconds'];
 			s.task = localCurrentWorkSession['task'];
 
 			// TODO : update the current minutes
@@ -126,13 +126,13 @@ export class AppComponent implements OnInit {
 				
 				if(s.start.getTime() < new Date().getTime()){
 					// if there was an ongoing task
-					// restart it here
+					// restart it heret
 					console.log("starting timer detected a started timer in the past");
 					this.startTimer();
 
 					let millis =
 					new Date().getTime() - this.currentWorkSession.start.getTime();
-					this.formattedTime = this.millisToMinutes(millis);
+					this.formattedTime = this.millisToSeconds(millis);
 
 
 				}
@@ -217,15 +217,15 @@ export class AppComponent implements OnInit {
 
 
 	/*
-	* converts millis to minutes
+	* converts millis to seconds
 	*/
-	millisToMinutes(millis: number): number {
+	millisToSeconds(millis: number): number {
 		console.log("millis: " + millis);
 		let seconds : number = millis / 1000 ;
-		console.log("s: " + seconds);
-		let minutes = seconds / 60;
-		console.log("m: "  + minutes);
-		return minutes;
+		//console.log("s: " + seconds);
+		//let minutes = seconds / 60;
+		//console.log("m: "  + minutes);
+		return seconds;
 	}
 
 	/**
@@ -269,7 +269,12 @@ export class AppComponent implements OnInit {
 			let currWorkSessionMillis = 
 			this.currentWorkSession.end.getTime()
 			 - this.currentWorkSession.start.getTime();
-			this.currentWorkSession.minutes = this.millisToMinutes(currWorkSessionMillis);
+
+			 console.log("calc session min: " + currWorkSessionMillis);
+
+			this.currentWorkSession.seconds = this.millisToSeconds(currWorkSessionMillis);
+			console.log("to secs: " + this.currentWorkSession.seconds);
+
 		}
 	}
 
@@ -284,7 +289,7 @@ export class AppComponent implements OnInit {
 			if(this.currentWorkSession.start != undefined){
 				let millis =
 				new Date().getTime() - this.currentWorkSession.start.getTime();
-				this.formattedTime = this.millisToMinutes(millis);
+				this.formattedTime = this.millisToSeconds(millis);
 			}
 
 			localStorage.setItem("currentWorkSession", JSON.stringify(this.currentWorkSession));
@@ -308,11 +313,11 @@ export class AppComponent implements OnInit {
 				let existingReports : TaskReport[] = reports.filter(rep => rep.task == session.task);
 				if(existingReports.length != 0){
 					// has one
-					existingReports[0].minutes += session.minutes;
+					existingReports[0].seconds += session.seconds;
 					existingReports[0].descriptions = existingReports[0].descriptions.concat(session.description);
 				}else{
 					let firstReport : TaskReport = new TaskReport();
-					firstReport.minutes = session.minutes;
+					firstReport.seconds = session.seconds;
 					firstReport.task = session.task;
 					firstReport.descriptions = firstReport.descriptions.concat(session.description);
 					reports = reports.concat(firstReport); 

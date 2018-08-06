@@ -7,6 +7,17 @@ body{
 	padding: 1px;
 }
 
+.timer{
+	color:yellow;
+	background: black;
+	padding: 16px;
+	margin:16px;
+	font-size: 48px;
+	font-weight: 900;
+	font-family: courier;
+
+}
+
 .work_history{
 	margin: 1px;
 	border: 1px solid black;

@@ -5,12 +5,12 @@ import { HttpModule } from '@angular/http';
 //import { MatDialogModule } from "@angular/material";
   
 import { AppComponent } from './app.component';
-import { MinutesToHumanTimePipe } from './minutes-to-human-time.pipe';
+import { SecondsToHumanTimePipe } from './seconds-to-human-time.pipe';
 
 @NgModule({
   declarations: [
     AppComponent,
-    MinutesToHumanTimePipe
+    SecondsToHumanTimePipe
   ],
   imports: [
     BrowserModule,

@@ -1,7 +1,8 @@
 
 
 <h1>Current Task</h1>
-
+<h1 style="position:absolute;top;1px;left:800px"> Elapsed Timer:  <span class="timer">{{ (formattedTime) | secondsToHumanTime }} </span>
+ </h1>
 
 
 <div class="working_container">
@@ -27,7 +28,7 @@
 
 		 	<h2> Current task Start Time:  {{ currentWorkSession?.start | date : 'shortTime' }}</h2>
 		 	
-		 	<h2> Elapsed Minutes of Current Session:  {{ formattedTime | minutesToHumanTime }} minutes </h2>
+		 	
 
 		</div>
 	</div>
@@ -46,7 +47,7 @@
 <h2>Totals:
 
 <br />
-  Combined minutes : {{ combinedMinutes | minutesToHumanTime }}
+  Combined minutes : {{ combinedMinutes | secondsToHumanTime }}
 </h2>
 
 
@@ -62,7 +63,7 @@
 		<div style="font-weight:900" 
 		(click)="toggleWorkItem(workSession)" 
 		>
-		 	<p>Task : {{ workSession.task }}  - {{ workSession?.minutes | minutesToHumanTime }}</p>
+		 	<p>Task : {{ workSession.task }}  - {{ workSession?.seconds | secondsToHumanTime }}</p>
 
 		 	<span style="position:relative;bottom:30px;right: 15px;" class="caret"> {{ workSession.showingDetail ? '^' :'V'  }}</span>
 
@@ -83,7 +84,7 @@
 				<textarea cols="40" name="desc" [(ngModel)]="workSession.description"> </textarea>
 			</p>
 			
-			<p style="font-weight:900"> Elapsed Minutes: {{ workSession?.minutes | minutesToHumanTime  }}
+			<p style="font-weight:900"> Elapsed Minutes: {{ workSession?.seconds | secondsToHumanTime  }}
 
 			<button (click)="deleteWorkSession(workSession)"> ( X ) </button>
 
@@ -115,7 +116,7 @@
 					<td>
 
 					<td>
-						{{ report.minutes | minutesToHumanTime }}
+						{{ report.seconds | secondsToHumanTime }}
 					<td>
 
 					<td>
