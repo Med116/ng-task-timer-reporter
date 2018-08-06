@@ -1,3 +1,138 @@
+
+
+<h1>Current Task</h1>
+
+
+
+<div class="working_container">
+	
+	<div class="working_btn" [ngClass]="{'working': working, 'idle': !working }">
+		<p> Working: {{ working }} </p>
+		
+		<button (click)="toggleWorking()">{{ working === true ? "STOP" : "START" }} WORKING </button>
+
+
+			<div class="current_session">
+		 	
+			<form ngForm>
+			    <input type="text" name="currentTask"
+			     [(ngModel)]="currentWorkSession.task"
+			     placeholder="current working task description" />
+
+			      <input type="text" name="currentTaskDescription"
+			     [(ngModel)]="currentWorkSession.description"
+			     placeholder="what are you doing?" />
+			</form>
+
+
+		 	<h2> Current task Start Time:  {{ currentWorkSession?.start | date : 'shortTime' }}</h2>
+		 	
+		 	<h2> Elapsed Minutes of Current Session:  {{ formattedTime | minutesToHumanTime }} minutes </h2>
+
+		</div>
+	</div>
+
+
+	
+
+</div>
+
+
 <h1>
-  {{title}}
-</h1>
+  Work History</h1>
+  <br />
+  
+
+<h2>Totals:
+
+<br />
+  Combined minutes : {{ combinedMinutes | minutesToHumanTime }}
+</h2>
+
+
+<div class="work_history">
+
+	<button (click)="clearWorkHistory()
+	">
+	clear all history
+	</button>
+
+	<div class="work_history_item" *ngFor="let workSession of workHistory">
+
+		<div style="font-weight:900" 
+		(click)="toggleWorkItem(workSession)" 
+		>
+		 	<p>Task : {{ workSession.task }}  - {{ workSession?.minutes | minutesToHumanTime }}</p>
+
+		 	<span style="position:relative;bottom:30px;right: 15px;" class="caret"> {{ workSession.showingDetail ? '^' :'V'  }}</span>
+
+		  </div>
+
+		<div class="toggle-content" [ngClass]="
+				{'toggle-hidden': !workSession.showingDetail,
+				 'toggle-show': workSession.showingDetail }">
+
+			<p> Start Time:  {{ workSession?.start | date : 'shortTime' }}</p>
+			
+			<p> End Time:  {{ workSession?.end | date : 'shortTime' }} </p>
+
+	
+			
+			<p> Description :{{ workSession?.description }}
+
+				<textarea cols="40" name="desc" [(ngModel)]="workSession.description"> </textarea>
+			</p>
+			
+			<p style="font-weight:900"> Elapsed Minutes: {{ workSession?.minutes | minutesToHumanTime  }}
+
+			<button (click)="deleteWorkSession(workSession)"> ( X ) </button>
+
+
+		</div>
+
+	</div>
+
+</div>
+
+<h2> Work Reports</h2>
+<div>
+
+
+	<div class="work_report">
+		
+		<h3> Task Report </h3>
+		
+		<p class="desc"> Time Grouped by Task Name </p>
+		
+		<button (click)="getReports()"> Update </button>
+
+		<table>
+			
+			<tr *ngFor="let report of taskReports">
+					
+					<td>
+						{{ report.task }}
+					<td>
+
+					<td>
+						{{ report.minutes | minutesToHumanTime }}
+					<td>
+
+					<td>
+						<ul>
+							<li *ngFor="let description of report.descriptions">
+							  {{ description }}
+							</li>
+						</ul>
+					</td>
+			</tr>
+
+
+		</table>
+
+
+
+
+	</div>
+
+</div>

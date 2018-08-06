@@ -1,0 +1,83 @@
+body{
+	background: black;
+}
+
+.work_history_item{
+	margin: 1px;
+	padding: 1px;
+}
+
+.work_history{
+	margin: 1px;
+	border: 1px solid black;
+	padding: 1px;
+	width:600px;
+}
+
+.work_history_item p{
+	margin: 5px;
+	border: 1px solid gray;
+	padding: 5px;
+}
+
+td{
+	font-size:1.70em;
+	margin: 1px;
+	padding: 1px;
+
+}
+.current_session{
+
+}
+
+.working_btn{
+	position: absolute;
+	top: 200px;
+	left:650px;
+
+}
+
+.working_btn button,.working_btn p  {
+	padding:10px;
+	margin:10px;
+	font-size: 2em;
+
+	
+}
+.working{
+	background: green;
+}
+
+.idle{
+	background: red;
+}
+
+.toggle-hidden{
+	display:none;
+}
+
+.toggle-show{
+	display: block;
+}
+
+
+.toggle-content{
+	margin:2px;
+	padding:2px;
+	background:#ccc;
+
+}
+
+textarea, input{
+	background: lightyellow;
+	color: blue;
+	font-size: 1.5em;
+	padding:3px;
+
+}
+
+.caret{
+
+	float:right;
+	color: purple;
+}
